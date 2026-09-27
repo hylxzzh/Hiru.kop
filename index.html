@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100e0f">
+  <meta name="description" content="Buat kop surat profesional dengan tiga template dan ekspor PDF." data-i18n-meta="meta.description">
+  <title>hiru.kop — Generator Kop Surat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- docx dipin ke 8.5.0 karena hanya versi ini yang masih menyediakan build UMD
+       (9.x hanyarizona dist/index.umd.cjs) sehingga global window.docx tetap ada. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+          integrity="sha384-Yv5O+t3uE3hunW8uyrbpPW3iw6/5/Y7HitWJBLgqfMoA36NogMmy+8wWZMpn3HWc"
+          crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"
+          integrity="sha384-4xaIisuLEy2lo2HkB2C4rEf7v8jbTb2kuogX6TkuEt9feTWKBSFSOzsqNNbV+sKh"
+          crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="script.js?v=20260927-9" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="hiru.kop, beranda" data-i18n-aria-label="a11y.brand">
+        <span class="brand-mark">h.</span>
+        <span>HIRU.KOP <span class="brand-divider">/</span> STUDIO</span>
+      </a>
+      <div class="topbar-end">
+        <div class="lang-switch" role="group" aria-label="Bahasa" data-i18n-aria-label="a11y.langGroup">
+          <button type="button" class="lang-option" data-lang="id" aria-pressed="true">ID</button>
+          <button type="button" class="lang-option" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <span class="topbar-note" data-i18n="topbar.note"><span class="status-dot"></span> RUANG KREASI DOKUMEN</span>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="form-panel" aria-labelledby="page-title">
+        <div class="eyebrow"><span>01</span> · <span data-i18n="eyebrow.editor">EDITOR SURAT</span></div>
+        <h1 id="page-title"><span data-i18n="h1.lead">Generator</span> <em data-i18n="h1.accent">Kop Surat</em></h1>
+        <p class="intro" data-i18n="intro">Rancang surat dengan karakter. Isi detail organisasi dan lihat hasilnya secara langsung.</p>
+
+        <div class="template-control">
+          <label for="template" data-i18n="template.label">Pilih Template</label>
+          <select id="template" name="template">
+            <option value="official" data-i18n="template.official">Template 1 — Resmi</option>
+            <option value="modern" data-i18n="template.modern">Template 2 — Modern</option>
+            <option value="creative" data-i18n="template.creative">Template 3 — Kreatif</option>
+          </select>
+        </div>
+
+        <form id="letter-form">
+          <fieldset>
+            <legend><span>01</span> <span data-i18n="legend.identity">IDENTITAS ORGANISASI</span></legend>
+            <div class="field">
+              <label for="organization" data-i18n="label.organization">Nama organisasi</label>
+              <input id="organization" name="organization" placeholder="Nama organisasi" data-i18n-placeholder="ph.organization">
+            </div>
+            <div class="field">
+              <label for="subtitle" data-i18n="label.subtitle">Nama instansi / tagline</label>
+              <input id="subtitle" name="subtitle" placeholder="Nama instansi atau tagline" data-i18n-placeholder="ph.subtitle">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="logo-left" data-i18n="label.logoLeft">Unggah logo kiri</label>
+                <input id="logo-left" name="logoLeft" type="file" accept="image/*">
+              </div>
+              <div class="field">
+                <label for="logo-right" data-i18n="label.logoRight">Unggah logo kanan</label>
+                <input id="logo-right" name="logoRight" type="file" accept="image/*">
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>02</span> <span data-i18n="legend.contact">INFORMASI KONTAK</span></legend>
+            <div class="field">
+              <label for="address" data-i18n="label.address">Alamat</label>
+              <input id="address" name="address" placeholder="Alamat lengkap" data-i18n-placeholder="ph.address">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="phone" data-i18n="label.phone">Telepon</label>
+                <input id="phone" name="phone" placeholder="Nomor telepon" data-i18n-placeholder="ph.phone">
+              </div>
+              <div class="field">
+                <label for="email" data-i18n="label.email">Email</label>
+                <input id="email" name="email" type="email" placeholder="Alamat email" data-i18n-placeholder="ph.email">
+              </div>
+            </div>
+            <div class="field">
+              <label for="website" data-i18n="label.website">Website</label>
+              <input id="website" name="website" placeholder="Alamat website" data-i18n-placeholder="ph.website">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>03</span> <span data-i18n="legend.letter">DETAIL SURAT</span></legend>
+            <div class="field-row">
+              <div class="field">
+                <label for="letter-number" data-i18n="label.letterNumber">Nomor surat</label>
+                <input id="letter-number" name="letterNumber" placeholder="Nomor surat" data-i18n-placeholder="ph.letterNumber">
+              </div>
+              <div class="field">
+                <label for="attachment" data-i18n="label.attachment">Lampiran</label>
+                <input id="attachment" name="attachment" placeholder="Jumlah lampiran" data-i18n-placeholder="ph.attachment">
+              </div>
+            </div>
+            <div class="field">
+              <label for="city"><span data-i18n="label.city">Kota penanda tangan</span> <span class="label-note" data-i18n="note.city">Dipakai pada baris tanggal surat</span></label>
+              <input id="city" name="city" placeholder="Kota penanda tangan" data-i18n-placeholder="ph.city">
+            </div>
+            <div class="field">
+              <label for="recipient" data-i18n="label.recipient">Tujuan surat</label>
+              <textarea id="recipient" name="recipient" rows="2" placeholder="Yth. ..." data-i18n-placeholder="ph.recipient"></textarea>
+            </div>
+            <div class="field">
+              <label for="subject" data-i18n="label.subject">Perihal</label>
+              <input id="subject" name="subject" placeholder="Perihal surat" data-i18n-placeholder="ph.subject">
+            </div>
+            <div class="field">
+              <label for="body-text"><span data-i18n="label.bodyText">Isi surat</span> <span class="label-note" data-i18n="note.bodyText">Pisahkan paragraf dengan baris kosong</span></label>
+              <textarea id="body-text" name="bodyText" rows="6" placeholder="Tuliskan isi surat..." data-i18n-placeholder="ph.bodyText"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend><span>04</span> <span data-i18n="legend.sign">PENUTUP &amp; TANDA TANGAN</span></legend>
+            <div class="field">
+              <label for="closing" data-i18n="label.closing">Kalimat penutup</label>
+              <input id="closing" name="closing" placeholder="Contoh: Hormat kami," data-i18n-placeholder="ph.closing">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="signer-title" data-i18n="label.signerTitle">Jabatan penanda tangan</label>
+                <input id="signer-title" name="signerTitle" placeholder="Jabatan" data-i18n-placeholder="ph.signerTitle">
+              </div>
+              <div class="field">
+                <label for="signer-name" data-i18n="label.signerName">Nama penanda tangan</label>
+                <input id="signer-name" name="signerName" placeholder="Nama lengkap" data-i18n-placeholder="ph.signerName">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+        <p class="form-footnote"><span class="footnote-line"></span> <span data-i18n="footnote">Semua perubahan tersimpan langsung di pratinjau.</span></p>
+      </section>
+
+      <section class="preview-panel" aria-labelledby="preview-title">
+        <div class="preview-toolbar">
+          <div>
+            <div class="eyebrow"><span>02</span> · <span data-i18n="eyebrow.result">HASIL AKHIR</span></div>
+            <h2 id="preview-title"><span data-i18n="h2.lead">Pratinjau</span> <em data-i18n="h2.accent">kertas</em></h2>
+          </div>
+          <div class="export-actions">
+            <button class="download-button" id="download-pdf" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 16v4h14v-4"/></svg>
+              <span>PDF</span>
+            </button>
+            <button class="download-button doc-button" id="download-doc" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6zM14 3v5h5M9 13h6M9 17h6"/></svg>
+              <span>Word</span>
+            </button>
+          </div>
+        </div>
+        <div class="filename-control">
+          <label for="export-filename" data-i18n="filename.label">Nama file ekspor</label>
+          <div class="filename-input-wrap">
+            <input id="export-filename" name="exportFilename" type="text" value="kop-surat" maxlength="80" autocomplete="off" spellcheck="false" placeholder="Contoh: surat-undangan" data-i18n-placeholder="filename.placeholder">
+            <span>.pdf / .docx</span>
+          </div>
+          <p data-i18n="filename.help">Nama ini digunakan untuk file PDF dan Word.</p>
+        </div>
+        <div class="paper-stage">
+          <article class="letter-paper template-official" id="letter-paper" aria-label="Pratinjau surat" data-i18n-aria-label="a11y.paper">
+            <div class="paper-content">
+              <header class="letterhead official-head">
+                <img class="logo logo-left" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Logo organisasi" hidden>
+                <div class="official-identity">
+                  <p class="paper-org" data-bind="organization"></p>
+                  <p class="paper-subtitle" data-bind="subtitle"></p>
+                  <p class="paper-contact"><span data-bind="address"></span></p>
+                  <p class="paper-contact"><span data-bind="phone"></span><span data-bind="email"></span></p>
+                </div>
+                <img class="logo logo-right" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Logo pendamping" hidden>
+              </header>
+
+              <header class="letterhead modern-head">
+                <img class="logo logo-modern" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Logo organisasi" hidden>
+                <div class="modern-identity">
+                  <p class="paper-org" data-bind="organization"></p>
+                  <p class="paper-subtitle" data-bind="subtitle"></p>
+                </div>
+                <div class="modern-contact">
+                  <p><span class="contact-icon">⌖</span><span data-bind="address"></span></p>
+                  <p><span class="contact-icon">☎</span><span data-bind="phone"></span></p>
+                  <p><span class="contact-icon">✉</span><span data-bind="email"></span></p>
+                  <p><span class="contact-icon">↗</span><span data-bind="website"></span></p>
+                </div>
+              </header>
+              <svg class="wave wave-top" viewBox="0 0 760 48" preserveAspectRatio="none" aria-hidden="true">
+                <path fill="#e7e8eb" d="M0 13C150 45 238-1 380 19s252 24 380-4v33H0Z"/>
+                <path fill="#17304a" d="M0 25c150 22 242-12 376 4s244 13 384-6v25H0Z"/>
+                <path fill="#a82e3f" d="M0 33c158 15 240-7 377 5s255 9 383-5v15H0Z"/>
+              </svg>
+
+              <div class="official-rule"><span></span><span></span></div>
+
+              <div class="letter-body">
+                <div class="letter-meta">
+                  <div class="meta-left">
+                    <p><span class="meta-label">Nomor</span><span>:</span><b data-bind="letterNumber"></b></p>
+                    <p><span class="meta-label">Lampiran</span><span>:</span><b data-bind="attachment"></b></p>
+                    <p><span class="meta-label">Perihal</span><span>:</span><b data-bind="subject"></b></p>
+                  </div>
+                  <div class="meta-right">
+                    <p class="letter-date"><span data-date></span></p>
+                    <p class="recipient-label">Kepada Yth.</p>
+                    <p class="recipient" data-bind="recipient"></p>
+                    <p>di tempat</p>
+                  </div>
+                </div>
+                <div class="letter-copy" data-body></div>
+                <div class="signature">
+                  <p class="signoff" data-bind="closing"></p>
+                  <p class="signer-title" data-bind="signerTitle"></p>
+                  <p class="signer-name" data-bind="signerName"></p>
+                </div>
+              </div>
+              <footer class="letter-footer"><span data-bind="website"></span></footer>
+            </div>
+          </article>
+        </div>
+        <div class="preview-caption"><span>UKURAN A4</span><span class="caption-dot">·</span><span data-i18n="caption.ready">SIAP UNTUK DICETAK</span></div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

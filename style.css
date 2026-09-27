@@ -1,0 +1,257 @@
+:root {
+  color-scheme: dark;
+  --ink: #f4efeb;
+  --muted: #a49b98;
+  --line: rgba(255, 255, 255, .09);
+  --blood: #9d2638;
+  --panel: rgba(24, 21, 22, .94);
+  font-family: "DM Sans", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-width: 340px;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 4% 95%, rgba(103, 19, 34, .24), transparent 31rem),
+    radial-gradient(ellipse at 96% 8%, rgba(65, 21, 27, .2), transparent 28rem),
+    #100e0f;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  content: "";
+  pointer-events: none;
+  opacity: .12;
+  background-image: radial-gradient(rgba(255,255,255,.36) .55px, transparent .55px);
+  background-size: 5px 5px;
+}
+
+.app-shell { max-width: 1600px; margin: 0 auto; padding: 0 5.2%; }
+.topbar {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: inline-flex; align-items: center; gap: 12px; color: #eee7e3; text-decoration: none; font-size: 10px; letter-spacing: .2em; font-weight: 700; }
+.brand-mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid rgba(173, 54, 69, .75); color: #d4a6a5; font: 600 22px "Cormorant Garamond", serif; }
+.brand-divider { color: #9d2638; padding: 0 3px; }
+.topbar-note { color: #958b88; font-size: 9px; letter-spacing: .18em; }
+.status-dot { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: #ad3a49; box-shadow: 0 0 10px #a32a3a; }
+
+/* Sakelar bahasa. Semua warna diambil dari token yang sudah dipakai di
+   halaman ini supaya tidak menambah palet baru. */
+.topbar-end { display: flex; align-items: center; gap: 14px; }
+.lang-switch { display: inline-flex; flex: 0 0 auto; overflow: hidden; border: 1px solid rgba(255,255,255,.14); border-radius: 2px; }
+.lang-option { min-width: 32px; height: 24px; padding: 0; border: 0; background: transparent; color: #8c807c; cursor: pointer; font: 600 9px "DM Sans", sans-serif; letter-spacing: .12em; transition: color .18s, background .2s; }
+.lang-option + .lang-option { border-left: 1px solid rgba(255,255,255,.14); }
+.lang-option:hover { color: #eee8e4; }
+.lang-option[aria-pressed="true"] { color: #f4e9e6; background: linear-gradient(115deg, #832536, #63202b); }
+.lang-option:focus-visible { outline: 2px solid #d98a94; outline-offset: -2px; }
+
+.workspace { display: grid; grid-template-columns: minmax(350px, .78fr) minmax(0, 1.22fr); gap: clamp(34px, 5.2vw, 84px); padding: 54px 0 72px; align-items: start; }
+.form-panel { max-width: 570px; }
+.eyebrow { color: #988c89; font-size: 9px; font-weight: 600; letter-spacing: .2em; }
+.eyebrow > span { color: #bd6b72; }
+h1, h2 { margin: 13px 0 0; font: 600 clamp(34px, 3vw, 47px)/1.06 "Cormorant Garamond", serif; letter-spacing: -.025em; }
+h1 em, h2 em { color: #bd6872; font-weight: 500; }
+.intro { max-width: 390px; margin: 13px 0 27px; color: #a69b98; font-size: 12px; line-height: 1.75; }
+
+.template-control { padding: 16px 17px 17px; border: 1px solid rgba(157, 38, 56, .42); border-radius: 3px; background: linear-gradient(110deg, rgba(81, 25, 32, .24), rgba(25, 21, 22, .78)); }
+.template-control label, .field label { display: block; margin: 0 0 8px; color: #c7bdb9; font-size: 10px; font-weight: 600; letter-spacing: .045em; }
+.template-control select, .field input, .field textarea { width: 100%; color: #eee8e4; border: 1px solid rgba(255,255,255,.12); border-radius: 2px; background-color: #181516; outline: none; font: 400 11px "DM Sans", sans-serif; transition: border-color .18s, box-shadow .18s; }
+.template-control select { height: 39px; padding: 0 11px; border-color: rgba(187, 79, 91, .47); }
+.field input, .field textarea { padding: 10px 11px; }
+.field input { height: 37px; }
+.field input[type="file"] { padding: 7px 8px; color: #a99f9b; font-size: 9px; }
+.field input[type="file"]::file-selector-button { margin: -3px 8px -3px -3px; padding: 5px 8px; border: 1px solid rgba(187, 79, 91, .4); border-radius: 2px; color: #eee8e4; background: #302123; cursor: pointer; font: 9px "DM Sans", sans-serif; }
+.field textarea { min-height: 56px; resize: vertical; line-height: 1.6; }
+.template-control select:focus, .field input:focus, .field textarea:focus { border-color: #ae4956; box-shadow: 0 0 0 2px rgba(157, 38, 56, .13); }
+.template-control select option { background: #181516; }
+
+fieldset { min-width: 0; margin: 0; padding: 22px 0 18px; border: 0; border-bottom: 1px solid var(--line); }
+legend { width: 100%; margin-bottom: 14px; padding: 0; color: #d1c7c2; font-size: 9px; font-weight: 700; letter-spacing: .15em; }
+legend span { margin-right: 9px; color: #b76871; font: 600 16px "Cormorant Garamond", serif; letter-spacing: 0; }
+.field { min-width: 0; margin-bottom: 12px; }
+.field:last-child { margin-bottom: 0; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field-row .field { min-width: 0; }
+.field label { display: flex; justify-content: space-between; color: #a99f9b; font-size: 9px; }
+.label-note { color: #8a7e7a; font-size: 8px; font-weight: 400; }
+.field input::placeholder, .field textarea::placeholder { color: #8a7e7a; }
+.form-footnote { display: flex; align-items: center; gap: 9px; margin: 17px 0 0; color: #8c807c; font-size: 9px; }
+.footnote-line { width: 20px; height: 1px; background: #9d2638; }
+
+.preview-panel { min-width: 0; position: sticky; top: 24px; }
+.preview-toolbar { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 20px; }
+.preview-toolbar h2 { margin-top: 7px; font-size: 33px; }
+.export-actions { display: flex; flex: 0 0 auto; gap: 8px; }
+.filename-control { margin: 0 0 14px; padding: 13px 15px; border: 1px solid rgba(255,255,255,.09); border-radius: 3px; background: rgba(24,21,22,.72); }
+.filename-control label { display: block; margin-bottom: 7px; color: #c7bdb9; font-size: 10px; font-weight: 600; letter-spacing: .045em; }
+.filename-input-wrap { display: flex; align-items: center; min-width: 0; border: 1px solid rgba(187,79,91,.4); border-radius: 2px; background: #181516; transition: border-color .18s, box-shadow .18s; }
+.filename-input-wrap:focus-within { border-color: #ae4956; box-shadow: 0 0 0 2px rgba(157,38,56,.13); }
+.filename-input-wrap input { width: 100%; min-width: 0; height: 37px; padding: 0 11px; border: 0; outline: 0; color: #eee8e4; background: transparent; font: 400 11px "DM Sans",sans-serif; }
+.filename-input-wrap span { flex: 0 0 auto; padding-right: 10px; color: #8c807c; font-size: 9px; }
+.filename-control > p { margin: 7px 0 0; color: #8c807c; font-size: 9px; }
+.download-button { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 9px; min-height: 40px; padding: 0 15px; border: 1px solid #9d3543; border-radius: 2px; color: #f4e9e6; background: linear-gradient(115deg, #832536, #63202b); cursor: pointer; font: 600 10px "DM Sans", sans-serif; letter-spacing: .03em; transition: background .2s, transform .2s; }
+.doc-button { border-color: rgba(255,255,255,.2); background: #211d1e; }
+.doc-button:hover { background: #33292b; }
+.download-button:hover { background: linear-gradient(115deg, #a03244, #742532); transform: translateY(-1px); }
+.download-button:disabled { opacity: .65; cursor: wait; transform: none; }
+.download-button svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.6; }
+.paper-stage { overflow: auto; padding: clamp(14px, 2vw, 27px); border: 1px solid rgba(255,255,255,.075); background: rgba(27, 24, 25, .58); box-shadow: 0 25px 65px rgba(0,0,0,.14); }
+
+/* The letter canvas deliberately resets the dark UI theme.
+   Lebarnya dikunci ke lebar A4 asli (794px) lalu diperkecil dengan `zoom`.
+   Dengan begitu geometri kertas (padding, ukuran font, posisi footer) selalu
+   identik dengan hasil ekspor PDF/Word — tidak seperti `width:100%` yang
+   membuat pratinjau menyempit dan baris teksnya berbeda dari PDF.
+   `--paper-scale` dihitung script.js dari lebar `.paper-stage`. */
+.letter-paper { --paper-bg: #fff; --paper-ink: #191919; position: relative; width: 794px; min-height: 1123px; margin: 0 auto; overflow: hidden; zoom: var(--paper-scale, 1); color: var(--paper-ink); background: var(--paper-bg); box-shadow: 0 12px 35px rgba(0,0,0,.25); font: 10px Arial, sans-serif; }
+.paper-content { position: relative; min-height: 1123px; padding: 58px 57px 55px; background: var(--paper-bg); }
+.letterhead { color: #171717; }
+.official-head { display: grid; grid-template-columns: 77px 1fr 77px; gap: 14px; align-items: center; min-height: 112px; text-align: center; }
+/* Logo disembunyikan memakai `visibility`, bukan `display: none`.
+   Alasannya: header kop memakai `grid-template-columns: <logo> 1fr <logo>`.
+   Elemen ber-display:none bukan grid item, sehingga identitas organisasi
+   otomatis masuk ke kolom logo yang hanya 77px dan teksnya terpotong
+   ("YAYASAN / CAKRAWALA / NUSANTARA"). `display: block` di sini diperlukan
+   untuk mengalahkan aturan [hidden] { display: none } dari UA stylesheet,
+   sementara `visibility: hidden` menyembunyikan gambarnya. */
+.logo { display: block; width: 68px; height: 68px; object-fit: contain; visibility: hidden; }
+.logo:not([hidden]) { visibility: visible; }
+.official-identity { text-align: center; }
+.paper-org { margin: 0; color: #171717; font: 700 19px/1.2 "Times New Roman", serif; text-transform: uppercase; }
+.paper-subtitle { margin: 4px 0; color: #242424; font: 700 11px/1.3 "Times New Roman", serif; }
+.paper-contact { display: flex; justify-content: center; gap: 7px; margin: 3px 0 0; color: #383838; font: 9px/1.35 Arial, sans-serif; }
+.official-rule { margin: 12px 0 25px; }
+.official-rule span { display: block; height: 2px; background: #171717; }
+.official-rule span + span { height: 1px; margin-top: 3px; }
+
+.letter-body { color: #181818; }
+.letter-meta { display: flex; align-items: start; justify-content: space-between; gap: 22px; margin-bottom: 27px; font: 11px/1.55 Arial, sans-serif; }
+.meta-left { min-width: 48%; }
+.meta-left p, .meta-right p { margin: 0 0 3px; }
+.meta-left p > span:not(.meta-label) { display: inline-block; width: 14px; }
+.meta-left .meta-label { display: inline-block; min-width: 68px; }
+.meta-left b { font-weight: 400; }
+.meta-right { max-width: 49%; text-align: right; }
+.meta-right .letter-date { margin: 0 0 20px; text-align: right; }
+.recipient-label { margin-bottom: 2px !important; }
+.recipient { white-space: pre-line; }
+.letter-copy { color: #171717; font: 11px/1.55 Arial, sans-serif; text-align: justify; }
+.letter-copy p { margin: 0 0 11px; text-indent: 30px; white-space: pre-line; }
+.letter-copy p:first-child { text-indent: 0; }
+.signature { width: 220px; margin: 35px 0 0 auto; color: #171717; font: 11px/1.5 Arial, sans-serif; }
+.signoff { min-height: 20px; margin: 0; }
+.signer-title { min-height: 76px; margin: 0; }
+.signer-name { display: inline-block; margin: 0; border-bottom: 1px solid #191919; font-weight: 700; }
+.letter-footer { position: absolute; right: 57px; bottom: 29px; left: 57px; color: #555; text-align: center; font: 9px Arial, sans-serif; }
+
+.modern-head { display: none; grid-template-columns: 74px 1fr auto; gap: 14px; align-items: center; min-height: 82px; }
+.modern-head .logo-modern { width: 68px; height: 68px; justify-self: start; }
+.modern-identity .paper-org { font: 700 17px/1.2 "DM Sans", Arial, sans-serif; }
+.modern-identity .paper-subtitle { font: 600 9px/1.5 "DM Sans", Arial, sans-serif; letter-spacing: .08em; }
+.modern-contact { max-width: 200px; }
+.modern-contact p { display: flex; gap: 6px; align-items: start; margin: 3px 0; color: #333; font: 8px/1.35 "DM Sans", Arial, sans-serif; }
+.contact-icon { width: 10px; flex: 0 0 10px; color: #17304a; text-align: center; font-size: 10px; }
+.wave { display: none; width: calc(100% + 114px); height: 41px; margin-left: -57px; }
+.wave-top { margin-top: 10px; }
+.template-modern .modern-head { display: grid; }
+.template-modern .wave { display: block; }
+.template-modern .letterhead:not(.modern-head), .template-modern .official-rule { display: none; }
+.template-modern .paper-content { padding-top: 43px; }
+.template-modern .letter-meta { margin-top: 22px; font-family: "DM Sans", Arial, sans-serif; }
+.template-modern .letter-copy { font: 10.5px/1.15 "DM Sans", Arial, sans-serif; text-align: justify; }
+.template-modern .letter-copy p { margin-bottom: 10px; text-indent: 0; }
+.template-modern .signature { margin: 28px auto 0 0; font-family: "DM Sans", Arial, sans-serif; }
+.template-modern .signer-title { min-height: 73px; }
+.template-modern .letter-footer { bottom: 66px; }
+.template-modern .letter-footer::before { position: absolute; right: -57px; bottom: -37px; left: -57px; z-index: 0; height: 42px; content: ""; background: #17304a; clip-path: polygon(0 24%, 29% 55%, 57% 32%, 100% 58%, 100% 100%, 0 100%); }
+.template-modern .letter-footer::after { position: absolute; right: -57px; bottom: -37px; left: -57px; z-index: 0; height: 35px; content: ""; background: #a82e3f; clip-path: polygon(0 36%, 28% 68%, 58% 43%, 100% 70%, 100% 100%, 0 100%); }
+.template-modern .letter-footer > span { position: relative; z-index: 1; }
+
+.template-creative { --paper-bg: #fbf5e9; --paper-ink: #34332f; background: #fbf5e9; }
+.template-creative .paper-content { padding: 72px 69px 64px; background: #fbf5e9; }
+.template-creative .official-head { display: grid; grid-template-columns: 58px 1fr 58px; gap: 12px; align-items: center; min-height: 145px; padding: 4px 0 0; }
+.template-creative .official-head .logo { width: 54px; height: 54px; }
+.template-creative .official-head .logo-left { justify-self: start; }
+.template-creative .official-head .logo-right { justify-self: end; }
+.template-creative .official-identity { text-align: center; }
+.template-creative .official-identity .paper-org { font: 600 33px/1.12 "Cormorant Garamond", Georgia, serif; text-transform: none; }
+.template-creative .official-identity .paper-subtitle { margin-top: 9px; font: 500 9px/1.5 "DM Sans", Arial, sans-serif; letter-spacing: .24em; }
+.template-creative .official-identity .paper-contact { margin-top: 5px; color: #655f55; font: 8px/1.4 "DM Sans", Arial, sans-serif; }
+.template-creative .official-rule { height: 1px; margin: 0 0 30px; background: #c9bba3; }
+.template-creative .official-rule span { display: none; }
+.template-creative .letter-meta { font-family: "DM Sans", Arial, sans-serif; }
+.template-creative .letter-copy { color: #34332f; font: 11px/1.5 "DM Sans", Arial, sans-serif; text-align: left; }
+.template-creative .letter-copy p { margin-bottom: 15px; text-indent: 0; }
+.template-creative .signature { margin: 32px auto 0 0; font-family: "DM Sans", Arial, sans-serif; }
+.template-creative .signer-title { min-height: 72px; }
+.template-creative .letter-footer { color: #6b6255; font-family: "DM Sans", Arial, sans-serif; }
+.template-creative .modern-head, .template-creative .wave { display: none; }
+
+.preview-caption { display: flex; gap: 8px; justify-content: flex-end; margin-top: 13px; color: #887e7b; font-size: 8px; letter-spacing: .14em; }
+.caption-dot { color: #a44350; }
+
+@media (max-width: 1050px) {
+  .app-shell { padding-right: 4%; padding-left: 4%; }
+  .workspace { grid-template-columns: minmax(320px, .88fr) minmax(0, 1.12fr); gap: 30px; }
+}
+
+@media (max-width: 760px) {
+  .app-shell { padding: 0 20px; }
+  .topbar { height: 64px; }
+  .topbar-note { font-size: 7px; letter-spacing: .1em; }
+  .workspace { grid-template-columns: 1fr; gap: 40px; padding-top: 36px; }
+  .form-panel { max-width: none; }
+  .preview-panel { position: static; }
+  .paper-stage { padding: 12px; }
+  .preview-toolbar h2 { font-size: 30px; }
+}
+
+@media (max-width: 480px) {
+  .app-shell { padding: 0 15px; }
+  .brand { font-size: 8px; }
+  .topbar-note { max-width: 125px; text-align: right; line-height: 1.5; }
+  .topbar-end { gap: 10px; }
+  .lang-option { min-width: 28px; height: 22px; }
+  .field-row { grid-template-columns: 1fr; gap: 0; }
+  .preview-toolbar { align-items: center; }
+  .download-button { min-height: 37px; padding: 0 10px; font-size: 9px; }
+  .paper-stage { margin: 0 -8px; padding: 8px; }
+}
+
+/* Indikator fokus keyboard untuk kontrol yang sebelumnya tidak memilikinya. */
+.download-button:focus-visible,
+.field input[type="file"]::file-selector-button:focus-visible {
+  outline: 2px solid #d98a94;
+  outline-offset: 2px;
+}
+
+@media print {
+  /* Cetak hanya kertasnya. Panel editor, toolbar, dan keterangan disembunyikan
+     supaya hasil Ctrl+P sama persis dengan file PDF. */
+  @page { size: A4; margin: 0; }
+
+  body { min-width: 0; background: #fff; }
+  body::before,
+  .topbar,
+  .form-panel,
+  .preview-toolbar,
+  .filename-control,
+  .preview-caption { display: none !important; }
+
+  .app-shell { max-width: none; padding: 0; }
+  .workspace { display: block; padding: 0; }
+  .preview-panel { position: static; }
+  .paper-stage { overflow: visible; padding: 0; border: 0; background: none; box-shadow: none; }
+  .letter-paper { zoom: 1 !important; margin: 0; overflow: visible; box-shadow: none; }
+}
